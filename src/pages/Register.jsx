@@ -34,7 +34,17 @@ export default function Register() {
       setTimeout(() => navigate('/'), 1400)
     } catch (err) {
       const msg = err.response?.data?.message
-      setError(msg === 'Email already in use.' ? 'Este pergaminho já está registrado.' : 'Erro ao criar conta.')
+      const isDuplicate =
+        msg === 'Email already in use.' ||
+        msg === 'E-mail já cadastrado.'
+
+      if (isDuplicate) {
+        setError('Este pergaminho já existe. Use suas credenciais para adentrar.')
+      } else if (!err.response) {
+        setError('Não foi possível contactar o servidor. Verifique se as APIs estão ativas.')
+      } else {
+        setError(msg || 'Erro ao criar conta. Tente novamente.')
+      }
       setLoading(false)
     }
   }
@@ -80,6 +90,9 @@ export default function Register() {
         <div className={styles.gregor}>
           <p className={styles.gregorLink}>
             🍺 Conta compartilhada com <a href="http://localhost:5173" target="_blank" rel="noreferrer">a Taverna do Gregor</a>
+          </p>
+          <p className={styles.gregorLink} style={{ marginTop: '0.4rem', fontSize: '0.8rem', opacity: 0.8 }}>
+            Conta do Gregor? <Link to="/login" style={{ color: 'var(--amber)', textDecoration: 'none' }}>Entre diretamente aqui →</Link>
           </p>
         </div>
       </div>
