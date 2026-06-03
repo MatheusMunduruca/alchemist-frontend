@@ -1,0 +1,28 @@
+.counter {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, #2d1654, #1a0a2e);
+  border: 1px solid rgba(201,162,39,0.5);
+  border-radius: 2rem;
+  padding: 0.4rem 1rem 0.4rem 0.6rem;
+  box-shadow: 0 0 20px rgba(201,162,39,0.2), inset 0 0 10px rgba(0,0,0,0.3);
+  z-index: 100;
+}
+
+.bag { width: 2.2rem; height: 2.2rem; }
+
+.amount {
+  font-family: 'Cinzel', serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #ffe066;
+  letter-spacing: 0.05em;
+  text-shadow: 0 0 8px rgba(255,215,0,0.5);
+  transition: transform 0.2s;
+}
+
+.pop { transform: scale(1.3); }

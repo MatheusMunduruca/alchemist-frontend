@@ -1,0 +1,127 @@
+.card {
+  background: linear-gradient(160deg, #2d1654 0%, #1a0a2e 100%);
+  border: 1px solid rgba(201,162,39,0.3);
+  border-radius: 0.8rem;
+  padding: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.7rem;
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 32px rgba(122,75,191,0.4);
+  border-color: rgba(201,162,39,0.7);
+}
+
+/* Potion bottle SVG area */
+.bottleWrap {
+  position: relative;
+  width: 80px;
+  height: 100px;
+}
+
+.bottle {
+  width: 80px;
+  height: 100px;
+}
+
+/* Bubbles inside bottle */
+.bubble {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.7;
+  animation: rise var(--dur, 2s) ease-in infinite var(--delay, 0s);
+}
+
+@keyframes rise {
+  0%   { transform: translateY(0)  scale(1);    opacity: 0.7; }
+  100% { transform: translateY(-40px) scale(0.5); opacity: 0;   }
+}
+
+/* Glow behind bottle */
+.glow {
+  position: absolute;
+  bottom: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 60px; height: 20px;
+  border-radius: 50%;
+  filter: blur(8px);
+  opacity: 0.6;
+  animation: pulse 2s ease-in-out infinite alternate;
+}
+
+@keyframes pulse {
+  from { opacity: 0.4; transform: translateX(-50%) scaleX(0.8); }
+  to   { opacity: 0.8; transform: translateX(-50%) scaleX(1.2); }
+}
+
+.name {
+  font-family: 'Cinzel', serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-align: center;
+  letter-spacing: 0.05em;
+}
+
+.description {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-align: center;
+  font-style: italic;
+  line-height: 1.4;
+  min-height: 2.4em;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-top: auto;
+}
+
+.price {
+  font-family: 'Cinzel', serif;
+  font-size: 0.95rem;
+  color: var(--amber-light);
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.coin { font-size: 0.9rem; }
+
+.stock {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.stock.low { color: #e74c3c; }
+
+.addBtn {
+  background: linear-gradient(135deg, #4a2080, #2d1654);
+  border: 1px solid rgba(201,162,39,0.5);
+  color: var(--amber-light);
+  border-radius: 0.4rem;
+  padding: 0.35rem 0.8rem;
+  font-family: 'Cinzel', serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.addBtn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #7b4bbf, #4a2080);
+  transform: scale(1.05);
+}
+
+.addBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}

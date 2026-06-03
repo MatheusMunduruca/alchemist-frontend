@@ -1,0 +1,51 @@
+.player {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, #2d1654, #1a0a2e);
+  border: 1px solid rgba(201,162,39,0.4);
+  border-radius: 2rem;
+  padding: 0.4rem 0.8rem;
+  z-index: 100;
+  box-shadow: 0 0 16px rgba(74,32,128,0.4);
+}
+
+.btn {
+  background: none;
+  border: none;
+  color: var(--amber-light);
+  font-size: 1.1rem;
+  padding: 0.1rem 0.3rem;
+  transition: color 0.2s, transform 0.1s;
+}
+.btn:hover { color: var(--gold); transform: scale(1.2); }
+
+.label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem;
+  color: #a89880;
+  letter-spacing: 0.08em;
+  max-width: 110px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.volume {
+  width: 60px;
+  accent-color: var(--amber);
+}
+
+.candle {
+  font-size: 0.9rem;
+  animation: flicker 2s ease-in-out infinite alternate;
+}
+
+@keyframes flicker {
+  0%   { opacity: 1;   transform: scaleY(1); }
+  50%  { opacity: 0.7; transform: scaleY(0.95); }
+  100% { opacity: 0.9; transform: scaleY(1.05); }
+}

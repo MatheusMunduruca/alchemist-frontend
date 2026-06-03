@@ -1,0 +1,41 @@
+.wrapper {
+  width: 100%;
+  max-width: 480px;
+  position: relative;
+}
+
+.box {
+  background: linear-gradient(135deg, #1a0a2e 0%, #2d1654 100%);
+  border: 1px solid rgba(201,162,39,0.5);
+  border-radius: 0.5rem;
+  padding: 1rem 1.2rem;
+  box-shadow: 0 0 24px rgba(122,75,191,0.3), inset 0 0 12px rgba(0,0,0,0.4);
+  position: relative;
+}
+
+.box::before {
+  content: '✦';
+  position: absolute;
+  top: -0.6rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1a0a2e;
+  color: var(--amber);
+  padding: 0 0.3rem;
+  font-size: 0.8rem;
+}
+
+.message {
+  font-family: 'Crimson Text', serif;
+  font-size: 1.05rem;
+  color: #f0e6d3;
+  line-height: 1.5;
+  font-style: italic;
+}
+
+.hint {
+  font-size: 0.8rem;
+  color: #a89880;
+  margin-top: 0.4rem;
+  text-align: right;
+}
