@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import styles from './GoldCounter.module.css'
 import { formatGold } from '../utils/gold'
 
-export default function GoldCounter({ gold }) {
+export default function GoldCounter({ gold, inline = false }) {
   const [pop, setPop] = useState(false)
 
   useEffect(() => {
@@ -12,7 +12,7 @@ export default function GoldCounter({ gold }) {
   }, [gold])
 
   return (
-    <div className={styles.counter}>
+    <div className={`${styles.counter} ${inline ? styles.inline : ''}`}>
       <svg viewBox="0 0 64 64" className={styles.bag} xmlns="http://www.w3.org/2000/svg">
         <defs>
           <linearGradient id="bagG" x1="0%" y1="0%" x2="0%" y2="100%">

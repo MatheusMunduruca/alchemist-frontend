@@ -7,6 +7,7 @@ import PotionCard from '../components/PotionCard'
 import GoldCounter from '../components/GoldCounter'
 import MusicControl from '../components/MusicControl'
 import { music } from '../utils/music'
+import { playGoldSound } from '../utils/gold'
 import styles from './Shop.module.css'
 
 const GREETINGS = [
@@ -81,6 +82,7 @@ export default function Shop() {
     try {
       await shopApi.post('/api/cart/items', { productId: product.id, quantity: 1 })
       setCartCount(c => c + 1)
+      playGoldSound()   // som de moedas ao comprar um item de Rudolf
       showDialog(`Excelente escolha. "${product.name}" adicionado à sua bolsa.`)
     } catch (err) {
       const msg = err.response?.data?.message
@@ -107,6 +109,7 @@ export default function Shop() {
         <div className={styles.logo}>⚗️ Empório do Rudolf</div>
         <nav className={styles.nav}>
           <span style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Olá, {userName}</span>
+          <GoldCounter gold={gold} inline />
           <Link to="/cart">
             <button className={styles.cartBtn}>
               🎒 Bolsa {cartCount > 0 && `(${cartCount})`}
@@ -165,7 +168,6 @@ export default function Shop() {
         </div>
       )}
 
-      <GoldCounter gold={gold} />
     </div>
   )
 }

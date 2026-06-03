@@ -13,6 +13,17 @@
   z-index: 100;
 }
 
+/* Variante para o cabeçalho (sem posição fixa) */
+.inline {
+  position: static;
+  bottom: auto;
+  right: auto;
+  padding: 0.3rem 0.8rem 0.3rem 0.5rem;
+  box-shadow: 0 0 12px rgba(201,162,39,0.15), inset 0 0 8px rgba(0,0,0,0.3);
+}
+.inline .bag { width: 1.6rem; height: 1.6rem; }
+.inline .amount { font-size: 0.95rem; }
+
 .bag { width: 2.2rem; height: 2.2rem; }
 
 .amount {
