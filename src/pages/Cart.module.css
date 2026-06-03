@@ -22,6 +22,12 @@
   letter-spacing: 0.08em;
 }
 
+.headerRight {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
 .backBtn {
   background: none;
   border: 1px solid rgba(201,162,39,0.3);

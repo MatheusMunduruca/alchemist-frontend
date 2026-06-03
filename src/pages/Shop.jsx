@@ -5,7 +5,8 @@ import Rudolf from '../components/Rudolf'
 import DialogBox from '../components/DialogBox'
 import PotionCard from '../components/PotionCard'
 import GoldCounter from '../components/GoldCounter'
-import MusicPlayer from '../components/MusicPlayer'
+import MusicControl from '../components/MusicControl'
+import { music } from '../utils/music'
 import styles from './Shop.module.css'
 
 const GREETINGS = [
@@ -92,6 +93,7 @@ export default function Shop() {
   }
 
   const logout = () => {
+    music.stop()   // só para a música ao trocar de conta
     localStorage.removeItem('token')
     localStorage.removeItem('userName')
     localStorage.removeItem('userGold')
@@ -110,6 +112,7 @@ export default function Shop() {
               🎒 Bolsa {cartCount > 0 && `(${cartCount})`}
             </button>
           </Link>
+          <MusicControl />
           <button className={styles.logoutBtn} onClick={logout}>Sair</button>
         </nav>
       </header>
@@ -163,7 +166,6 @@ export default function Shop() {
       )}
 
       <GoldCounter gold={gold} />
-      <MusicPlayer />
     </div>
   )
 }

@@ -63,16 +63,34 @@
 
 /* Scene area (Rudolf + dialog) */
 .scene {
-  display: flex;
-  gap: 2rem;
-  align-items: flex-start;
-  padding: 2rem 2rem 1rem;
-  max-width: 900px;
+  position: relative;
+  padding: 1.5rem 2rem 1rem;
+  max-width: 1400px;
   margin: 0 auto;
   width: 100%;
 }
 
-.dialogArea { flex: 1; padding-top: 1rem; }
+.dialogArea {
+  position: absolute;
+  top: 14%;
+  right: 5%;
+  width: 380px;
+  z-index: 20;
+  animation: dialogFloat 0.5s ease-out;
+}
+
+@keyframes dialogFloat {
+  from { opacity: 0; transform: translateX(20px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@media (max-width: 1000px) {
+  .dialogArea {
+    position: static;
+    width: 100%;
+    margin-top: 1.5rem;
+  }
+}
 
 /* Category filters */
 .categories {
@@ -80,7 +98,7 @@
   gap: 0.5rem;
   flex-wrap: wrap;
   padding: 0 2rem 1rem;
-  max-width: 900px;
+  max-width: 1400px;
   margin: 0 auto;
   width: 100%;
 }
@@ -108,7 +126,7 @@
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   gap: 1.2rem;
   padding: 0 2rem 6rem;
-  max-width: 900px;
+  max-width: 1400px;
   margin: 0 auto;
   width: 100%;
 }

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { shopApi, tavernApi } from '../services/api'
 import { playGoldSound } from '../utils/gold'
 import GoldCounter from '../components/GoldCounter'
-import MusicPlayer from '../components/MusicPlayer'
+import MusicControl from '../components/MusicControl'
 import styles from './Cart.module.css'
 
 export default function Cart() {
@@ -89,7 +89,6 @@ export default function Cart() {
           </div>
         </div>
         <GoldCounter gold={gold} />
-        <MusicPlayer />
       </div>
     )
   }
@@ -98,7 +97,10 @@ export default function Cart() {
     <div className={styles.layout}>
       <header className={styles.header}>
         <div className={styles.logo}>⚗️ Empório do Rudolf</div>
-        <button className={styles.backBtn} onClick={() => navigate('/')}>← Voltar à loja</button>
+        <div className={styles.headerRight}>
+          <MusicControl />
+          <button className={styles.backBtn} onClick={() => navigate('/')}>← Voltar à loja</button>
+        </div>
       </header>
 
       <div className={styles.content}>
@@ -144,7 +146,6 @@ export default function Cart() {
       </div>
 
       <GoldCounter gold={gold} />
-      <MusicPlayer />
     </div>
   )
 }
