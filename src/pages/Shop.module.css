@@ -92,6 +92,37 @@
   }
 }
 
+/* Barra de estoque (timer + refresh) */
+.stockBar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+  padding: 0 2rem 1rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.refreshBtn {
+  background: linear-gradient(135deg, #4a2080, #7b4bbf);
+  border: 1px solid rgba(201, 162, 39, 0.5);
+  color: var(--amber-light);
+  border-radius: 2rem;
+  padding: 0.4rem 1rem;
+  font-family: 'Cinzel', serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+}
+.refreshBtn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #7b4bbf, #4a2080);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(122, 75, 191, 0.4);
+}
+.refreshBtn:disabled { opacity: 0.6; cursor: not-allowed; }
+
 /* Category filters */
 .categories {
   display: flex;

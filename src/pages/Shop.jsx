@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { shopApi, tavernApi } from '../services/api'
 import Rudolf from '../components/Rudolf'
@@ -6,9 +6,14 @@ import DialogBox from '../components/DialogBox'
 import PotionCard from '../components/PotionCard'
 import GoldCounter from '../components/GoldCounter'
 import MusicControl from '../components/MusicControl'
+import StockTimer from '../components/StockTimer'
 import { music } from '../utils/music'
 import { playGoldSound } from '../utils/gold'
 import styles from './Shop.module.css'
+
+// Conta administrativa: e-mail com domínio "adm" (ex.: admin@adm)
+const userEmail = localStorage.getItem('userEmail') || ''
+const isAdmin = userEmail.split('@')[1]?.toLowerCase() === 'adm'
 
 const GREETINGS = [
   'O que você procura hoje, viajante? Tenho poções para qualquer necessidade...',
@@ -26,9 +31,20 @@ export default function Shop() {
   const [gold, setGold] = useState(() => Number(localStorage.getItem('userGold') || 0))
   const [dialog, setDialog] = useState(GREETINGS[Math.floor(Math.random() * GREETINGS.length)])
   const [tempDialog, setTempDialog] = useState(false)
+  const [refreshing, setRefreshing] = useState(false)
   const dialogTimer = useRef(null)
   const userName = localStorage.getItem('userName') || 'Viajante'
   const navigate = useNavigate()
+
+  // Carrega/recarrega os produtos (respeitando o filtro de categoria)
+  const loadProducts = useCallback(() => {
+    setLoading(true)
+    const params = selectedCat ? { category: selectedCat } : {}
+    return shopApi.get('/api/products', { params })
+      .then(({ data }) => setProducts(data))
+      .catch(() => {})
+      .finally(() => setLoading(false))
+  }, [selectedCat])
 
   // Busca gold real do backend
   useEffect(() => {
@@ -53,13 +69,8 @@ export default function Shop() {
   }, [])
 
   useEffect(() => {
-    setLoading(true)
-    const params = selectedCat ? { category: selectedCat } : {}
-    shopApi.get('/api/products', { params })
-      .then(({ data }) => setProducts(data))
-      .catch(() => {})
-      .finally(() => setLoading(false))
-  }, [selectedCat])
+    loadProducts()
+  }, [loadProducts])
 
   // Carrega contagem do carrinho
   useEffect(() => {
@@ -91,6 +102,27 @@ export default function Shop() {
       } else {
         showDialog('Hmm... algo interferiu no processo. Tente novamente.')
       }
+    }
+  }
+
+  // Reset automático quando o timer zera (nova janela de 6h)
+  const handleStockReset = useCallback(() => {
+    loadProducts()
+    showDialog('Novas mercadorias acabaram de chegar ao balcão!')
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loadProducts])
+
+  // Botão administrativo: força a renovação do estoque
+  const handleAdminRefresh = async () => {
+    setRefreshing(true)
+    try {
+      await shopApi.post('/api/products/refresh-stock')
+      await loadProducts()
+      showDialog('O estoque foi renovado por encanto, mestre.')
+    } catch {
+      showDialog('Não foi possível renovar o estoque agora.')
+    } finally {
+      setRefreshing(false)
     }
   }
 
@@ -133,6 +165,21 @@ export default function Shop() {
             } : undefined}
           />
         </div>
+      </div>
+
+      {/* Barra de estoque: timer de reset + refresh administrativo */}
+      <div className={styles.stockBar}>
+        <StockTimer onReset={handleStockReset} />
+        {isAdmin && (
+          <button
+            className={styles.refreshBtn}
+            onClick={handleAdminRefresh}
+            disabled={refreshing}
+            title="Renovar o estoque agora (admin)"
+          >
+            {refreshing ? '🔄 Renovando...' : '🔄 Refresh'}
+          </button>
+        )}
       </div>
 
       {/* Category filters */}
