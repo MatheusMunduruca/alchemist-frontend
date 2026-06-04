@@ -12,3 +12,13 @@ export function playGoldSound() {
     audio.play().catch(() => {})
   } catch {}
 }
+
+// Tocado sempre que o estoque de Rudolf é renovado (timer de 6h ou refresh admin)
+export function playStockSound() {
+  try {
+    const audio = new Audio('/sounds/stock.mp3')
+    const v = Number(localStorage.getItem('alc-volume') ?? 0.6)
+    audio.volume = Math.min(1, Math.max(0.5, v * 1.6))
+    audio.play().catch(() => {})
+  } catch {}
+}

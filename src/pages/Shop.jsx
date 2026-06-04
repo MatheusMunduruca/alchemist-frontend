@@ -8,12 +8,8 @@ import GoldCounter from '../components/GoldCounter'
 import MusicControl from '../components/MusicControl'
 import StockTimer from '../components/StockTimer'
 import { music } from '../utils/music'
-import { playGoldSound } from '../utils/gold'
+import { playGoldSound, playStockSound } from '../utils/gold'
 import styles from './Shop.module.css'
-
-// Conta administrativa: e-mail com domínio "adm" (ex.: admin@adm)
-const userEmail = localStorage.getItem('userEmail') || ''
-const isAdmin = userEmail.split('@')[1]?.toLowerCase() === 'adm'
 
 const GREETINGS = [
   'O que você procura hoje, viajante? Tenho poções para qualquer necessidade...',
@@ -34,6 +30,8 @@ export default function Shop() {
   const [refreshing, setRefreshing] = useState(false)
   const dialogTimer = useRef(null)
   const userName = localStorage.getItem('userName') || 'Viajante'
+  // Lido a cada montagem (após login) — conta admin = e-mail com domínio "adm"
+  const isAdmin = (localStorage.getItem('userEmail') || '').split('@')[1]?.toLowerCase() === 'adm'
   const navigate = useNavigate()
 
   // Carrega/recarrega os produtos (respeitando o filtro de categoria)
@@ -108,6 +106,7 @@ export default function Shop() {
   // Reset automático quando o timer zera (nova janela de 6h)
   const handleStockReset = useCallback(() => {
     loadProducts()
+    playStockSound()
     showDialog('Novas mercadorias acabaram de chegar ao balcão!')
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loadProducts])
@@ -118,6 +117,7 @@ export default function Shop() {
     try {
       await shopApi.post('/api/products/refresh-stock')
       await loadProducts()
+      playStockSound()
       showDialog('O estoque foi renovado por encanto, mestre.')
     } catch {
       showDialog('Não foi possível renovar o estoque agora.')
