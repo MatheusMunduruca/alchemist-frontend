@@ -50,14 +50,6 @@ export default function Rudolf() {
           <img src={rudolfImg} alt="Rudolf, o Alquimista" className={styles.rudolfImg} />
         </div>
 
-        {/* Caldeirão borbulhante */}
-        <div className={styles.cauldron}>
-          <div className={styles.cauldronGlow} />
-          <span className={`${styles.bubble} ${styles.b1}`} />
-          <span className={`${styles.bubble} ${styles.b2}`} />
-          <span className={`${styles.bubble} ${styles.b3}`} />
-        </div>
-
         <span className={styles.name}>Rudolf, o Alquimista</span>
       </div>
 

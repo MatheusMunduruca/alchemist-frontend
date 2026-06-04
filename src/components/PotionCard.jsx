@@ -17,9 +17,16 @@ function getPalette(categoryName = '') {
 export default function PotionCard({ product, onAddToCart }) {
   const pal = getPalette(product.categoryName)
   const outOfStock = product.stockQuantity === 0
+  const hasDiscount = (product.discountPercent ?? 0) > 0
+  const finalPrice = product.finalPrice ?? product.price
 
   return (
     <div className={styles.card}>
+      {/* Selo de desconto */}
+      {hasDiscount && (
+        <div className={styles.discountBadge}>-{product.discountPercent}%</div>
+      )}
+
       {/* Potion bottle illustration */}
       <div className={styles.bottleWrap}>
         <svg viewBox="0 0 80 100" className={styles.bottle} xmlns="http://www.w3.org/2000/svg">
@@ -69,7 +76,13 @@ export default function PotionCard({ product, onAddToCart }) {
       <div className={styles.footer}>
         <span className={styles.price}>
           <span className={styles.coin}>🪙</span>
-          {product.price.toLocaleString('pt-BR')} Gold
+          {hasDiscount && (
+            <span className={styles.original}>{product.price.toLocaleString('pt-BR')}</span>
+          )}
+          <span className={hasDiscount ? styles.discounted : ''}>
+            {finalPrice.toLocaleString('pt-BR')}
+          </span>
+          {' '}Gold
         </span>
         <span className={`${styles.stock} ${product.stockQuantity <= 3 ? styles.low : ''}`}>
           {outOfStock ? 'Esgotado' : `${product.stockQuantity} em estoque`}
