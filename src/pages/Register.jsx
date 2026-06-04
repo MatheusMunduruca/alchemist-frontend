@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { tavernApi } from '../services/api'
 import { playGoldSound } from '../utils/gold'
+import { music } from '../utils/music'
 import styles from './Auth.module.css'
 
 export default function Register() {
@@ -24,6 +25,9 @@ export default function Register() {
 
       // Toca o som de gold ao receber as 1000 moedas de boas-vindas
       if (data.goldBalance > 0) playGoldSound()
+
+      // Inicia a música do Empório (clique do registro = gesto permitido)
+      music.play()
 
       // Salva o diálogo do Rudolf para exibir na loja
       if (data.welcomeDialogue) {

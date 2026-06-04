@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { tavernApi } from '../services/api'
+import { music } from '../utils/music'
 import styles from './Auth.module.css'
 
 export default function Login() {
@@ -20,6 +21,7 @@ export default function Login() {
       localStorage.setItem('userName', data.name)
       localStorage.setItem('userEmail', data.email)
       localStorage.setItem('userGold', String(data.goldBalance ?? 0))
+      music.play()   // inicia a música do Empório (clique do login = gesto permitido)
       setFadingOut(true)
       setTimeout(() => navigate('/'), 1200)
     } catch {
