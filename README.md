@@ -127,4 +127,4 @@ E o retrato do Rudolf em `src/assets/rudolf.jpg`. Sem os áudios, a aplicação 
 
 ## 👨‍💻 Autor
 
-**Matheus Munduruca** · [GitHub](https://github.com/MatheusMunduruca) · [LinkedIn](https://linkedin.com/in/matheusmunduruca644200209)
+**Matheus Munduruca** · [GitHub](https://github.com/MatheusMunduruca) · [LinkedIn](linkedin.com/in/matheusmunduruca)
