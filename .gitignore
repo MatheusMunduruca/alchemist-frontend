@@ -1,2 +1,16 @@
 node_modules/
 dist/
+
+# ===== Segredos e configuração local =====
+# Variáveis de ambiente
+.env
+.env.*
+!.env.example
+
+# Arquivos "locais" genéricos
+*.local
+
+# Chaves / certificados
+*.pem
+*.key
+*.pfx
